@@ -1,0 +1,1527 @@
+options:
+  parameters:
+    author: ''
+    catch_exceptions: 'True'
+    category: '[GRC Hier Blocks]'
+    cmake_opt: ''
+    comment: ''
+    copyright: ''
+    description: ''
+    gen_cmake: 'On'
+    gen_linking: dynamic
+    generate_options: qt_gui
+    hier_block_src_path: '.:'
+    id: fmradio
+    max_nouts: '0'
+    output_language: python
+    placement: (0,0)
+    qt_qss_theme: ''
+    realtime_scheduling: ''
+    run: 'True'
+    run_command: '{python} -u {filename}'
+    run_options: prompt
+    sizing_mode: fixed
+    thread_safe_setters: ''
+    title: Not titled yet
+    window_size: (1000,1000)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 8]
+    rotation: 0
+    state: enabled
+
+blocks:
+- name: baseline_chips
+  id: variable
+  parameters:
+    comment: ''
+    value: '16'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1264, 252.0]
+    rotation: 0
+    state: enabled
+- name: baseline_len
+  id: variable
+  parameters:
+    comment: ''
+    value: ' max(1,int(chip_samples * baseline_chips))'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1392, 252.0]
+    rotation: 0
+    state: enabled
+- name: baseline_scale
+  id: variable
+  parameters:
+    comment: ''
+    value: 1.0 / baseline_len
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1264, 316.0]
+    rotation: 0
+    state: enabled
+- name: carrier
+  id: variable
+  parameters:
+    comment: ''
+    value: 40.68e6
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [784, 20.0]
+    rotation: 0
+    state: enabled
+- name: chip_samples
+  id: variable
+  parameters:
+    comment: ''
+    value: rx_rate * chip_time
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [632, 20.0]
+    rotation: 0
+    state: enabled
+- name: chip_time
+  id: variable
+  parameters:
+    comment: ''
+    value: '0.02'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [200, 20.0]
+    rotation: 0
+    state: enabled
+- name: demod_rate
+  id: variable
+  parameters:
+    comment: ''
+    value: samp_rate / xlate_decim
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [392, 20.0]
+    rotation: 0
+    state: enabled
+- name: display_chips
+  id: variable
+  parameters:
+    comment: ''
+    value: '30'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1264, 404.0]
+    rotation: 0
+    state: enabled
+- name: display_points
+  id: variable
+  parameters:
+    comment: ''
+    value: int(chip_samples * display_chips)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1264, 468.0]
+    rotation: 0
+    state: enabled
+- name: keep_n
+  id: variable
+  parameters:
+    comment: ''
+    value: max(1, int(demod_rate * chip_time / samples_per_chip))
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [552, 20.0]
+    rotation: 0
+    state: enabled
+- name: offset
+  id: variable
+  parameters:
+    comment: ''
+    value: 100e3
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [896, 20.0]
+    rotation: 0
+    state: enabled
+- name: rx_rate
+  id: variable
+  parameters:
+    comment: ''
+    value: demod_rate/keep_n
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [552, 92.0]
+    rotation: 0
+    state: enabled
+- name: samp_rate
+  id: variable
+  parameters:
+    comment: ''
+    value: 1e6
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [200, 84.0]
+    rotation: 0
+    state: enabled
+- name: samples_per_chip
+  id: variable
+  parameters:
+    comment: ''
+    value: '100'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [392, 84.0]
+    rotation: 0
+    state: enabled
+- name: smooth_fraction
+  id: variable
+  parameters:
+    comment: ''
+    value: '0.1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1048, 124.0]
+    rotation: 0
+    state: enabled
+- name: smooth_len
+  id: variable
+  parameters:
+    comment: ''
+    value: max(1,int(demod_rate * chip_time * smooth_fraction))
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1192, 124.0]
+    rotation: 0
+    state: enabled
+- name: smooth_scale
+  id: variable
+  parameters:
+    comment: ''
+    value: 1.0/smooth_len
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1048, 196.0]
+    rotation: 0
+    state: enabled
+- name: target_freq
+  id: variable
+  parameters:
+    comment: ''
+    value: carrier-offset
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [784, 84.0]
+    rotation: 0
+    state: enabled
+- name: xlate_decim
+  id: variable
+  parameters:
+    comment: ''
+    value: '10'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [200, 148.0]
+    rotation: 0
+    state: enabled
+- name: xlate_taps
+  id: variable
+  parameters:
+    comment: ''
+    value: firdes.low_pass(    1.0,    samp_rate,    10e3,    5e3,    window.WIN_HAMMING)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1256, 12.0]
+    rotation: 0
+    state: enabled
+- name: blocks_complex_to_mag_squared_0
+  id: blocks_complex_to_mag_squared
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [616, 344.0]
+    rotation: 0
+    state: enabled
+- name: blocks_keep_one_in_n_0
+  id: blocks_keep_one_in_n
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    n: keep_n
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [184, 520.0]
+    rotation: 0
+    state: enabled
+- name: blocks_message_debug_0
+  id: blocks_message_debug
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    en_uvec: 'True'
+    log_level: info
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1240, 608.0]
+    rotation: 0
+    state: enabled
+- name: blocks_moving_average_xx_0
+  id: blocks_moving_average_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    length: smooth_len
+    max_iter: '4000'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    scale: smooth_scale
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [808, 316.0]
+    rotation: 0
+    state: enabled
+- name: blocks_moving_average_xx_1
+  id: blocks_moving_average_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    length: baseline_len
+    max_iter: '4000'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    scale: baseline_scale
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [352, 628.0]
+    rotation: 0
+    state: disabled
+- name: blocks_sub_xx_0
+  id: blocks_sub_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_inputs: '2'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [560, 656.0]
+    rotation: 0
+    state: disabled
+- name: epy_block_0
+  id: epy_block
+  parameters:
+    _source_code: "import numpy as np\nfrom gnuradio import gr\nimport pmt\nimport\
+      \ binascii\n\n\nclass blk(gr.sync_block):\n\n    PREAMBLE = \"1010101010101010\"\
+      \n\n    def __init__(\n        self,\n        rx_rate=400.0,\n        chip_time=0.25,\n\
+      \        min_silence_time=0.50,\n        first_center_fraction=0.40,\n     \
+      \   max_payload=1024,\n        debug_chips=True\n    ):\n\n        gr.sync_block.__init__(\n\
+      \            self,\n            name=\"Manchester Hamming74 Frame Decoder\"\
+      ,\n            in_sig=[np.float32],\n            out_sig=[]\n        )\n\n \
+      \       # ====================================================\n        # Timing\
+      \ configuration\n        # ====================================================\n\
+      \n        self.rx_rate = float(rx_rate)\n        self.chip_time = float(chip_time)\n\
+      \n        self.chip_samples = max(\n            4,\n            int(\n     \
+      \           round(\n                    self.rx_rate\n                    *\
+      \ self.chip_time\n                )\n            )\n        )\n\n        # Frame\
+      \ must be preceded by this much OFF time.\n        self.min_silence_samples\
+      \ = max(\n            1,\n            int(\n                self.rx_rate\n \
+      \               * min_silence_time\n            )\n        )\n\n        # The\
+      \ slicer has a small debounce delay.\n        #\n        # After observing the\
+      \ first rising edge, wait this\n        # fraction of a chip so we sample near\
+      \ the center\n        # of the first HIGH Manchester chip.\n        self.first_center_delay\
+      \ = max(\n            1,\n            int(\n                self.chip_samples\n\
+      \                * float(first_center_fraction)\n            )\n        )\n\n\
+      \        self.max_payload = int(\n            max_payload\n        )\n\n   \
+      \     self.debug_chips = bool(\n            debug_chips\n        )\n\n\n   \
+      \     # ====================================================\n        # Message\
+      \ output\n        # ====================================================\n\n\
+      \        self.message_port_register_out(\n            pmt.intern(\"out\")\n\
+      \        )\n\n\n        # ====================================================\n\
+      \        # Build Hamming(7,4) codebook\n        # ====================================================\n\
+      \n        self.codebook = []\n\n        for value in range(16):\n\n        \
+      \    data = [\n                (value >> 3) & 1,\n                (value >>\
+      \ 2) & 1,\n                (value >> 1) & 1,\n                value & 1\n  \
+      \          ]\n\n            codeword = self.hamming_encode(\n              \
+      \  data\n            )\n\n            self.codebook.append(\n              \
+      \  (\n                    data,\n                    codeword\n            \
+      \    )\n            )\n\n\n        print(\n            \"Manchester + Hamming(7,4)\
+      \ decoder started\",\n            flush=True\n        )\n\n        print(\n\
+      \            \"rx_rate:\",\n            self.rx_rate,\n            flush=True\n\
+      \        )\n\n        print(\n            \"chip_time:\",\n            self.chip_time,\n\
+      \            flush=True\n        )\n\n        print(\n            \"samples/chip:\"\
+      ,\n            self.chip_samples,\n            flush=True\n        )\n\n   \
+      \     print(\n            \"minimum silence samples:\",\n            self.min_silence_samples,\n\
+      \            flush=True\n        )\n\n        print(\n            \"first center\
+      \ delay:\",\n            self.first_center_delay,\n            flush=True\n\
+      \        )\n\n\n        self.reset()\n\n\n    # ========================================================\n\
+      \    # Hamming(7,4) encoder\n    #\n    # Used to construct the decoder codebook.\n\
+      \    # ========================================================\n\n    def hamming_encode(\n\
+      \        self,\n        data\n    ):\n\n        d1, d2, d3, d4 = data\n\n  \
+      \      # Hamming positions:\n        #\n        # 1 = p1\n        # 2 = p2\n\
+      \        # 3 = d1\n        # 4 = p4\n        # 5 = d2\n        # 6 = d3\n  \
+      \      # 7 = d4\n\n        p1 = (\n            d1\n            ^ d2\n      \
+      \      ^ d4\n        )\n\n        p2 = (\n            d1\n            ^ d3\n\
+      \            ^ d4\n        )\n\n        p4 = (\n            d2\n           \
+      \ ^ d3\n            ^ d4\n        )\n\n        return [\n            p1,\n \
+      \           p2,\n            d1,\n            p4,\n            d2,\n       \
+      \     d3,\n            d4\n        ]\n\n\n    # ========================================================\n\
+      \    # Hamming(7,4) decoder\n    # ========================================================\n\
+      \n    def hamming_decode(\n        self,\n        received\n    ):\n\n     \
+      \   \"\"\"\n        received contains seven values:\n\n            0\n     \
+      \       1\n            None\n\n        None represents a Manchester erasure.\n\
+      \n        We compare against all 16 valid Hamming codewords and\n        choose\
+      \ the unique nearest codeword.\n        \"\"\"\n\n        erasures = sum(\n\
+      \            bit is None\n            for bit in received\n        )\n\n   \
+      \     candidates = []\n\n        for data, codeword in self.codebook:\n\n  \
+      \          errors = 0\n\n            for r, c in zip(\n                received,\n\
+      \                codeword\n            ):\n\n                if r is None:\n\
+      \                    continue\n\n                if r != c:\n              \
+      \      errors += 1\n\n\n            candidates.append(\n                (\n\
+      \                    errors,\n                    data,\n                  \
+      \  codeword\n                )\n            )\n\n\n        minimum = min(\n\
+      \            item[0]\n            for item in candidates\n        )\n\n\n  \
+      \      best = [\n            item\n            for item in candidates\n    \
+      \        if item[0] == minimum\n        ]\n\n\n        # More than one equally-good\
+      \ codeword means the result\n        # is ambiguous.\n        if len(best) !=\
+      \ 1:\n\n            return None\n\n\n        errors, data, codeword = best[0]\n\
+      \n\n        # Hamming(7,4) has distance 3.\n        #\n        # Guaranteed\
+      \ correction condition:\n        #\n        #     2(errors) + erasures < 3\n\
+      \n        if (\n            erasures > 0\n            and\n            (\n \
+      \               2 * errors\n                + erasures\n            ) >= 3\n\
+      \        ):\n\n            return None\n\n\n        corrected = (\n        \
+      \    errors > 0\n            or\n            erasures > 0\n        )\n\n\n \
+      \       return {\n            \"data\": data,\n            \"codeword\": codeword,\n\
+      \            \"errors\": errors,\n            \"erasures\": erasures,\n    \
+      \        \"corrected\": corrected\n        }\n\n\n    # ========================================================\n\
+      \    # Reset receiver\n    # ========================================================\n\
+      \n    def reset(self):\n\n        # --------------------------------------------\n\
+      \        # Physical/frame synchronization\n        # --------------------------------------------\n\
+      \n        self.state = \"WAIT\"\n\n        self.silence_count = 0\n\n      \
+      \  # Counts down to next chip-center sample.\n        self.center_count = 0\n\
+      \n\n        # --------------------------------------------\n        # Manchester\
+      \ decoder\n        # --------------------------------------------\n\n      \
+      \  self.chip_pair = []\n\n\n        # --------------------------------------------\n\
+      \        # Protocol decoder\n        # --------------------------------------------\n\
+      \n        self.stage = \"PREAMBLE\"\n\n        self.preamble_bits = \"\"\n\n\
+      \        self.hamming_buffer = []\n\n        self.length_bits = \"\"\n\n   \
+      \     self.payload_bits = \"\"\n\n        self.crc_bits = \"\"\n\n        self.payload_length\
+      \ = 0\n\n\n        # --------------------------------------------\n        #\
+      \ Statistics\n        # --------------------------------------------\n\n   \
+      \     self.corrected_words = 0\n\n        self.uncorrectable_words = 0\n\n\n\
+      \    # ========================================================\n    # Process\
+      \ one Manchester chip\n    # ========================================================\n\
+      \n    def process_chip(\n        self,\n        chip\n    ):\n\n        self.chip_pair.append(\n\
+      \            chip\n        )\n\n\n        if len(self.chip_pair) < 2:\n\n  \
+      \          return\n\n\n        first = self.chip_pair[0]\n\n        second =\
+      \ self.chip_pair[1]\n\n        self.chip_pair = []\n\n\n        # ====================================================\n\
+      \        # Manchester decoding\n        #\n        # 0 -> 01\n        # 1 ->\
+      \ 10\n        # ====================================================\n\n   \
+      \     if (\n            first == 0\n            and\n            second == 1\n\
+      \        ):\n\n            bit = 0\n\n\n        elif (\n            first ==\
+      \ 1\n            and\n            second == 0\n        ):\n\n            bit\
+      \ = 1\n\n\n        else:\n\n            print(\n                \"Manchester\
+      \ erasure:\",\n                first,\n                second,\n           \
+      \     flush=True\n            )\n\n\n            # The preamble is not protected\
+      \ by Hamming.\n            # If synchronization is wrong during the preamble,\n\
+      \            # restart frame acquisition.\n            if self.stage == \"PREAMBLE\"\
+      :\n\n                print(\n                    \"Lost synchronization during\
+      \ preamble\",\n                    flush=True\n                )\n\n       \
+      \         self.reset()\n\n                return\n\n\n            # Inside Hamming-protected\
+      \ data, preserve the bit\n            # position by inserting an erasure.\n\
+      \            bit = None\n\n\n        # ====================================================\n\
+      \        # Preamble\n        # ====================================================\n\
+      \n        if self.stage == \"PREAMBLE\":\n\n            self.process_preamble_bit(\n\
+      \                bit\n            )\n\n            return\n\n\n        # ====================================================\n\
+      \        # Hamming protected body\n        # ====================================================\n\
+      \n        self.process_hamming_bit(\n            bit\n        )\n\n\n    # ========================================================\n\
+      \    # Process preamble bit\n    # ========================================================\n\
+      \n    def process_preamble_bit(\n        self,\n        bit\n    ):\n\n    \
+      \    if bit is None:\n\n            self.reset()\n\n            return\n\n\n\
+      \        self.preamble_bits += str(\n            bit\n        )\n\n\n      \
+      \  if (\n            len(self.preamble_bits)\n            < len(self.PREAMBLE)\n\
+      \        ):\n\n            return\n\n\n        if (\n            self.preamble_bits\n\
+      \            != self.PREAMBLE\n        ):\n\n            print(\n          \
+      \      \"Bad preamble:\",\n                self.preamble_bits,\n           \
+      \     flush=True\n            )\n\n            self.reset()\n\n            return\n\
+      \n\n        print(\n            \"Preamble detected\",\n            flush=True\n\
+      \        )\n\n\n        self.stage = \"LENGTH\"\n\n        self.hamming_buffer\
+      \ = []\n\n\n    # ========================================================\n\
+      \    # Process Hamming encoded bit stream\n    # ========================================================\n\
+      \n    def process_hamming_bit(\n        self,\n        bit\n    ):\n\n     \
+      \   self.hamming_buffer.append(\n            bit\n        )\n\n\n        if\
+      \ (\n            len(self.hamming_buffer)\n            < 7\n        ):\n\n \
+      \           return\n\n\n        received = list(\n            self.hamming_buffer\n\
+      \        )\n\n        self.hamming_buffer = []\n\n\n        result = self.hamming_decode(\n\
+      \            received\n        )\n\n\n        if result is None:\n\n       \
+      \     print(\n                \"Uncorrectable Hamming codeword:\",\n       \
+      \         received,\n                flush=True\n            )\n\n         \
+      \   self.uncorrectable_words += 1\n\n            self.reset()\n\n          \
+      \  return\n\n\n        if result[\"corrected\"]:\n\n            self.corrected_words\
+      \ += 1\n\n            print(\n                \"Hamming corrected:\",\n    \
+      \            received,\n                \"->\",\n                result[\"codeword\"\
+      ],\n                flush=True\n            )\n\n\n        # One Hamming codeword\
+      \ recovers four original bits.\n        for bit_value in result[\"data\"]:\n\
+      \n            self.process_body_bit(\n                bit_value\n          \
+      \  )\n\n\n    # ========================================================\n \
+      \   # Process original data after Hamming correction\n    # ========================================================\n\
+      \n    def process_body_bit(\n        self,\n        bit\n    ):\n\n        bit\
+      \ = str(\n            bit\n        )\n\n\n        # ====================================================\n\
+      \        # LENGTH\n        # ====================================================\n\
+      \n        if self.stage == \"LENGTH\":\n\n            self.length_bits += bit\n\
+      \n\n            if (\n                len(self.length_bits)\n              \
+      \  == 16\n            ):\n\n                self.payload_length = int(\n   \
+      \                 self.length_bits,\n                    2\n               \
+      \ )\n\n\n                print(\n                    \"Payload length:\",\n\
+      \                    self.payload_length,\n                    \"bytes\",\n\
+      \                    flush=True\n                )\n\n\n                if (\n\
+      \                    self.payload_length\n                    > self.max_payload\n\
+      \                ):\n\n                    print(\n                        \"\
+      Invalid payload length\",\n                        flush=True\n            \
+      \        )\n\n                    self.reset()\n\n                    return\n\
+      \n\n                if (\n                    self.payload_length\n        \
+      \            == 0\n                ):\n\n                    self.stage = \"\
+      CRC\"\n\n                else:\n\n                    self.stage = \"PAYLOAD\"\
+      \n\n\n            return\n\n\n        # ====================================================\n\
+      \        # PAYLOAD\n        # ====================================================\n\
+      \n        if self.stage == \"PAYLOAD\":\n\n            self.payload_bits +=\
+      \ bit\n\n\n            required = (\n                self.payload_length\n \
+      \               * 8\n            )\n\n\n            if (\n                len(self.payload_bits)\n\
+      \                >= required\n            ):\n\n                self.stage =\
+      \ \"CRC\"\n\n\n            return\n\n\n        # ====================================================\n\
+      \        # CRC\n        # ====================================================\n\
+      \n        if self.stage == \"CRC\":\n\n            self.crc_bits += bit\n\n\n\
+      \            if (\n                len(self.crc_bits)\n                == 16\n\
+      \            ):\n\n                self.finish_frame()\n\n\n            return\n\
+      \n\n    # ========================================================\n    # Finish\
+      \ frame / verify CRC\n    # ========================================================\n\
+      \n    def finish_frame(self):\n\n        payload = bytearray()\n\n\n       \
+      \ for i in range(\n            0,\n            len(self.payload_bits),\n   \
+      \         8\n        ):\n\n            byte_bits = (\n                self.payload_bits[\n\
+      \                    i:i + 8\n                ]\n            )\n\n\n       \
+      \     if len(byte_bits) == 8:\n\n                payload.append(\n         \
+      \           int(\n                        byte_bits,\n                     \
+      \   2\n                    )\n                )\n\n\n        received_crc =\
+      \ int(\n            self.crc_bits,\n            2\n        )\n\n\n        calculated_crc\
+      \ = (\n            binascii.crc_hqx(\n                payload,\n           \
+      \     0xFFFF\n            )\n        )\n\n\n        print(\n            \"Received\
+      \ CRC:\",\n            hex(received_crc),\n            flush=True\n        )\n\
+      \n        print(\n            \"Calculated CRC:\",\n            hex(calculated_crc),\n\
+      \            flush=True\n        )\n\n\n        # ====================================================\n\
+      \        # CRC failure\n        # ====================================================\n\
+      \n        if (\n            received_crc\n            != calculated_crc\n  \
+      \      ):\n\n            print(\n                \"CRC FAILED\",\n         \
+      \       flush=True\n            )\n\n            print(\n                \"\
+      Hamming corrections:\",\n                self.corrected_words,\n           \
+      \     flush=True\n            )\n\n            self.reset()\n\n            return\n\
+      \n\n        # ====================================================\n       \
+      \ # CRC success\n        # ====================================================\n\
+      \n        print(\n            \"CRC OK\",\n            flush=True\n        )\n\
+      \n\n        try:\n\n            text = bytes(\n                payload\n   \
+      \         ).decode(\n                \"utf-8\"\n            )\n\n\n        except\
+      \ UnicodeDecodeError:\n\n            print(\n                \"UTF-8 decoding\
+      \ failed\",\n                flush=True\n            )\n\n            self.reset()\n\
+      \n            return\n\n\n        print()\n\n        print(\n            \"\
+      ==============================\",\n            flush=True\n        )\n\n   \
+      \     print(\n            \"DECODED MESSAGE:\",\n            flush=True\n  \
+      \      )\n\n        print(\n            text,\n            flush=True\n    \
+      \    )\n\n        print(\n            \"Hamming corrections:\",\n          \
+      \  self.corrected_words,\n            flush=True\n        )\n\n        print(\n\
+      \            \"==============================\",\n            flush=True\n \
+      \       )\n\n        print()\n\n\n        self.message_port_pub(\n         \
+      \   pmt.intern(\"out\"),\n            pmt.to_pmt(\n                text\n  \
+      \          )\n        )\n\n\n        self.reset()\n\n\n    # ========================================================\n\
+      \    # GNU Radio work()\n    # ========================================================\n\
+      \n    def work(\n        self,\n        input_items,\n        output_items\n\
+      \    ):\n\n        x = input_items[0]\n\n\n        for sample in x:\n\n    \
+      \        # Slicer outputs approximately 0.0 / 1.0.\n            level = (\n\
+      \                1\n                if sample >= 0.5\n                else 0\n\
+      \            )\n\n\n            # =================================================\n\
+      \            # STATE: WAIT\n            #\n            # Wait for a long OFF\
+      \ period followed by the first\n            # rising edge of the Manchester\
+      \ frame.\n            # =================================================\n\n\
+      \            if self.state == \"WAIT\":\n\n                if level == 0:\n\n\
+      \                    self.silence_count += 1\n\n\n                else:\n\n\
+      \                    # Rising edge after sufficient OFF guard.\n           \
+      \         if (\n                        self.silence_count\n               \
+      \         >= self.min_silence_samples\n                    ):\n\n          \
+      \              print(\n                            \"Frame start detected\"\
+      ,\n                            flush=True\n                        )\n\n\n \
+      \                       self.state = \"RECEIVE\"\n\n\n                     \
+      \   # -------------------------------------\n                        # We're\
+      \ near the beginning of the\n                        # first HIGH chip.\n  \
+      \                      #\n                        # Wait until near its center.\n\
+      \                        # -------------------------------------\n\n       \
+      \                 self.center_count = (\n                            self.first_center_delay\n\
+      \                        )\n\n\n                    else:\n\n              \
+      \          # Not enough preceding silence.\n                        self.silence_count\
+      \ = 0\n\n\n            # =================================================\n\
+      \            # STATE: RECEIVE\n            #\n            # Sample one value\
+      \ near the center of every\n            # Manchester chip.\n            # =================================================\n\
+      \n            elif self.state == \"RECEIVE\":\n\n                self.center_count\
+      \ -= 1\n\n\n                if (\n                    self.center_count\n  \
+      \                  <= 0\n                ):\n\n                    chip = level\n\
+      \n\n                    if self.debug_chips:\n\n                        print(\n\
+      \                            \"chip:\",\n                            chip,\n\
+      \                            flush=True\n                        )\n\n\n   \
+      \                 self.process_chip(\n                        chip\n       \
+      \             )\n\n\n                    # -----------------------------------------\n\
+      \                    # Next chip center is exactly one chip\n              \
+      \      # duration later.\n                    # -----------------------------------------\n\
+      \n                    self.center_count = (\n                        self.chip_samples\n\
+      \                    )\n\n\n        return len(x)"
+    affinity: ''
+    alias: ''
+    chip_time: chip_time
+    comment: ''
+    debug_chips: 'True'
+    first_center_fraction: '0.4'
+    max_payload: '1024'
+    maxoutbuf: '0'
+    min_silence_time: '0.5'
+    minoutbuf: '0'
+    rx_rate: rx_rate
+  states:
+    _io_cache: ('Manchester Hamming74 Frame Decoder', 'blk', [('rx_rate', '400.0'),
+      ('chip_time', '0.25'), ('min_silence_time', '0.5'), ('first_center_fraction',
+      '0.4'), ('max_payload', '1024'), ('debug_chips', 'True')], [('0', 'float', 1)],
+      [('out', 'message', 1)], '', ['chip_time', 'debug_chips', 'max_payload', 'rx_rate'])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [912, 500.0]
+    rotation: 0
+    state: enabled
+- name: epy_block_1
+  id: epy_block
+  parameters:
+    _source_code: "import numpy as np\nfrom gnuradio import gr\n\n\nclass blk(gr.sync_block):\n\
+      \n    def __init__(\n        self,\n        rx_rate=400.0,\n        chip_time=0.25,\n\
+      \        cal_off_time=1.0,\n        on_detect_time=0.50,\n        on_verify_time=1.00,\n\
+      \        guard_confirm_time=0.40,\n        end_idle_time=3.0\n    ):\n\n   \
+      \     gr.sync_block.__init__(\n            self,\n            name=\"Adaptive\
+      \ OOK Slicer\",\n            in_sig=[np.float32],\n            out_sig=[np.float32]\n\
+      \        )\n\n        self.rx_rate = float(rx_rate)\n        self.chip_time\
+      \ = float(chip_time)\n\n        # A threshold crossing must persist for 10%\
+      \ of a chip\n        # before the digital state changes.\n        self.transition_samples\
+      \ = max(\n            2,\n            int(\n                self.rx_rate\n \
+      \               * self.chip_time\n                * 0.10\n            )\n  \
+      \      )\n\n        print(\n            \"Transition confirmation samples:\"\
+      ,\n            self.transition_samples,\n            flush=True\n        )\n\
+      \        # ====================================================\n        # Convert\
+      \ durations to samples\n        # ====================================================\n\
+      \n        # How much idle/OFF data to use to determine LOW.\n        self.off_samples_needed\
+      \ = max(\n            1,\n            int(self.rx_rate * cal_off_time)\n   \
+      \     )\n\n        # Sliding window used to initially identify carrier ON.\n\
+      \        self.on_detect_samples = max(\n            1,\n            int(self.rx_rate\
+      \ * on_detect_time)\n        )\n\n        # Total sustained ON duration required\
+      \ before\n        # accepting the HIGH calibration.\n        self.on_verify_samples\
+      \ = max(\n            1,\n            int(self.rx_rate * on_verify_time)\n \
+      \       )\n\n        # Amount of sustained OFF required after calibration\n\
+      \        # before enabling the output.\n        self.guard_confirm_samples =\
+      \ max(\n            1,\n            int(self.rx_rate * guard_confirm_time)\n\
+      \        )\n\n        # Amount of sustained OFF used to determine that the\n\
+      \        # frame has ended.\n        self.end_idle_samples = max(\n        \
+      \    1,\n            int(self.rx_rate * end_idle_time)\n        )\n\n      \
+      \  print(\n            \"Adaptive OOK slicer started\",\n            flush=True\n\
+      \        )\n\n        print(\n            \"rx_rate:\",\n            self.rx_rate,\n\
+      \            flush=True\n        )\n\n        print(\n            \"OFF calibration\
+      \ samples:\",\n            self.off_samples_needed,\n            flush=True\n\
+      \        )\n\n        print(\n            \"ON detect samples:\",\n        \
+      \    self.on_detect_samples,\n            flush=True\n        )\n\n        print(\n\
+      \            \"ON verify samples:\",\n            self.on_verify_samples,\n\
+      \            flush=True\n        )\n\n        print(\n            \"Guard samples:\"\
+      ,\n            self.guard_confirm_samples,\n            flush=True\n       \
+      \ )\n\n        self.reset()\n\n\n    # ========================================================\n\
+      \    # Reset state machine\n    # ========================================================\n\
+      \n    def reset(self):\n\n        self.state = \"CAL_OFF\"\n\n        self.rise_count\
+      \ = 0\n        self.fall_count = 0\n        self.off_buffer = []\n        self.detect_buffer\
+      \ = []\n        self.on_buffer = []\n        self.guard_buffer = []\n      \
+      \  self.low_level = None\n        self.high_level = None\n        self.low_noise\
+      \ = None\n        self.on_detection_threshold = None\n        self.threshold_low\
+      \ = None\n        self.threshold_high = None\n\n        self.output_state =\
+      \ 0\n\n        self.guard_count = 0\n        self.idle_count = 0\n\n       \
+      \ self.false_on_count = 0\n\n\n    # ========================================================\n\
+      \    # GNU Radio work function\n    # ========================================================\n\
+      \n    def work(\n        self,\n        input_items,\n        output_items\n\
+      \    ):\n\n        x = input_items[0]\n        y = output_items[0]\n\n     \
+      \   for i, sample in enumerate(x):\n\n            value = float(sample)\n\n\n\
+      \            # =================================================\n         \
+      \   # STATE 1\n            #\n            # Measure carrier-OFF level\n    \
+      \        # =================================================\n\n           \
+      \ if self.state == \"CAL_OFF\":\n\n                # Never expose calibration\
+      \ to decoder.\n                y[i] = 0.0\n\n                self.off_buffer.append(\n\
+      \                    value\n                )\n\n                if (\n    \
+      \                len(self.off_buffer)\n                    >= self.off_samples_needed\n\
+      \                ):\n\n                    n = len(\n                      \
+      \  self.off_buffer\n                    )\n\n                    # Ignore first\
+      \ and last 10%.\n                    lo = int(\n                        0.10\
+      \ * n\n                    )\n\n                    hi = int(\n            \
+      \            0.90 * n\n                    )\n\n                    middle =\
+      \ np.asarray(\n                        self.off_buffer[lo:hi],\n           \
+      \             dtype=np.float64\n                    )\n\n\n                \
+      \    # -----------------------------------------\n                    # Robust\
+      \ estimate of LOW\n                    # -----------------------------------------\n\
+      \n                    median = float(\n                        np.median(middle)\n\
+      \                    )\n\n                    mad = float(\n               \
+      \         np.median(\n                            np.abs(\n                \
+      \                middle - median\n                            )\n          \
+      \              )\n                    )\n\n                    self.low_level\
+      \ = median\n\n                    # Convert MAD to approximate standard\n  \
+      \                  # deviation.\n                    self.low_noise = (\n  \
+      \                      1.4826 * mad\n                    )\n               \
+      \     self.on_detection_threshold = (\n                        self.low_level\n\
+      \                        + max(\n                            2.5 * self.low_noise,\n\
+      \                            abs(self.low_level) * 0.08\n                  \
+      \      )\n                    )\n                    print(\n              \
+      \          \"LOW level:\",\n                        self.low_level,\n      \
+      \                  \"noise:\",\n                        self.low_noise,\n  \
+      \                      flush=True\n                    )\n\n               \
+      \     # Freeze LOW and start searching for ON.\n                    self.state\
+      \ = \"WAIT_ON\"\n\n                    self.detect_buffer = []\n\n\n       \
+      \     # =================================================\n            # STATE\
+      \ 2\n            #\n            # Search for sustained increase that may be\
+      \ ON\n            # =================================================\n\n  \
+      \          elif self.state == \"WAIT_ON\":\n\n                y[i] = 0.0\n\n\
+      \                self.detect_buffer.append(value)\n\n                if len(self.detect_buffer)\
+      \ > self.on_detect_samples:\n                    self.detect_buffer.pop(0)\n\
+      \n                if len(self.detect_buffer) == self.on_detect_samples:\n\n\
+      \                    window = np.asarray(\n                        self.detect_buffer,\n\
+      \                        dtype=np.float64\n                    )\n\n       \
+      \             # Require the MEDIAN of the whole window to rise.\n          \
+      \          window_median = float(\n                        np.median(window)\n\
+      \                    )\n\n                    # Stronger ON requirement now\
+      \ that the antenna\n                    # gives us much better separation.\n\
+      \                    rise_needed = max(\n                        2.5 * self.low_noise,\n\
+      \                        abs(self.low_level) * 0.08\n                    )\n\
+      \n                    rise_threshold = self.on_detection_threshold\n\n     \
+      \               if window_median >= rise_threshold:\n\n                    \
+      \    print(\n                            \"ON candidate:\",\n              \
+      \              \"level =\",\n                            window_median,\n  \
+      \                          \"required >=\",\n                            rise_threshold,\n\
+      \                            flush=True\n                        )\n\n     \
+      \                   self.on_buffer = list(\n                            self.detect_buffer\n\
+      \                        )\n\n                        self.state = \"VERIFY_ON\"\
+      \n\n\n            # =================================================\n    \
+      \        # STATE 3\n            #\n            # Require sustained ON before\
+      \ accepting calibration\n            # =================================================\n\
+      \n            elif self.state == \"VERIFY_ON\":\n\n                y[i] = 0.0\n\
+      \n                self.on_buffer.append(\n                    value\n      \
+      \          )\n\n\n                if (\n                    len(self.on_buffer)\n\
+      \                    >= self.on_verify_samples\n                ):\n\n     \
+      \               on_data = np.asarray(\n                        self.on_buffer,\n\
+      \                        dtype=np.float64\n                    )\n\n       \
+      \             n = len(\n                        on_data\n                  \
+      \  )\n\n                    # Ignore transition edges.\n                   \
+      \ lo = int(\n                        0.10 * n\n                    )\n\n   \
+      \                 hi = int(\n                        0.90 * n\n            \
+      \        )\n\n                    middle = on_data[\n                      \
+      \  lo:hi\n                    ]\n\n\n                    candidate_high = float(\n\
+      \                        np.median(\n                            middle\n  \
+      \                      )\n                    )\n\n\n                    gap\
+      \ = (\n                        candidate_high\n                        - self.low_level\n\
+      \                    )\n\n\n                    # -----------------------------------------\n\
+      \                    # Verification threshold\n                    #\n     \
+      \               # More strict than initial detection.\n                    #\
+      \ -----------------------------------------\n\n                    required_gap\
+      \ = max(\n                        2.0 * self.low_noise,\n                  \
+      \      abs(self.low_level) * 0.02\n                    )\n\n\n             \
+      \       # -----------------------------------------\n                    # False\
+      \ ON candidate\n                    # -----------------------------------------\n\
+      \n                    if gap < required_gap:\n\n                        self.false_on_count\
+      \ += 1\n\n                        # Don't spam the console.\n              \
+      \          # Print first rejection and then every\n                        #\
+      \ fifth rejection for diagnostics.\n                        if (\n         \
+      \                   self.false_on_count == 1\n                            or\n\
+      \                            self.false_on_count % 5 == 0\n                \
+      \        ):\n\n                            print(\n                        \
+      \        \"ON candidate rejected:\",\n                                \"HIGH\
+      \ =\",\n                                candidate_high,\n                  \
+      \              \"gap =\",\n                                gap,\n          \
+      \                      \"required >=\",\n                                required_gap,\n\
+      \                                \"rejections =\",\n                       \
+      \         self.false_on_count,\n                                flush=True\n\
+      \                            )\n\n\n                        # Do NOT recalibrate\
+      \ LOW.\n                        #\n                        # LOW is already\
+      \ known.\n                        # Simply continue waiting for the real\n \
+      \                       # ON calibration burst.\n                        self.state\
+      \ = \"WAIT_ON\"\n\n                        self.detect_buffer = []\n       \
+      \                 self.on_buffer = []\n\n                        continue\n\n\
+      \n                    # -----------------------------------------\n        \
+      \            # Real ON calibration accepted\n                    # -----------------------------------------\n\
+      \n                    self.high_level = (\n                        candidate_high\n\
+      \                    )\n\n\n                    print(\n                   \
+      \     \"ON CALIBRATION VERIFIED\",\n                        flush=True\n   \
+      \                 )\n\n                    print(\n                        \"\
+      LOW:\",\n                        self.low_level,\n                        flush=True\n\
+      \                    )\n\n                    print(\n                     \
+      \   \"HIGH:\",\n                        self.high_level,\n                 \
+      \       flush=True\n                    )\n\n                    print(\n  \
+      \                      \"Signal gap:\",\n                        gap,\n    \
+      \                    flush=True\n                    )\n\n\n               \
+      \     # -----------------------------------------\n                    # Calculate\
+      \ threshold\n                    # -----------------------------------------\n\
+      \n                    # Turn ON when signal reaches 40% of the distance\n  \
+      \                  # from calibrated LOW to calibrated HIGH.\n             \
+      \       self.threshold_high = (\n                        self.low_level\n  \
+      \                      + 0.45 * gap\n                    )\n\n             \
+      \       # Turn OFF when signal falls below 25% of the\n                    #\
+      \ distance from LOW to HIGH.\n                    self.threshold_low = (\n \
+      \                       self.low_level\n                        + 0.2 * gap\n\
+      \                    )\n\n\n                    print(\n                   \
+      \     \"Threshold low:\",\n                        self.threshold_low,\n   \
+      \                     flush=True\n                    )\n\n                \
+      \    print(\n                        \"Threshold high:\",\n                \
+      \        self.threshold_high,\n                        flush=True\n        \
+      \            )\n\n\n                    # -----------------------------------------\n\
+      \                    # Do NOT activate yet.\n                    #\n       \
+      \             # The transmitter is still inside its\n                    # calibration\
+      \ ON period.\n                    #\n                    # Wait for the known\
+      \ OFF guard.\n                    # -----------------------------------------\n\
+      \n                    self.state = \"WAIT_GUARD\"\n\n                    self.guard_count\
+      \ = 0\n\n                    self.output_state = 0\n\n                    self.detect_buffer\
+      \ = []\n                    self.on_buffer = []\n\n\n            # =================================================\n\
+      \            # STATE 4\n            #\n            # Wait for transmitter OFF\
+      \ guard\n            # =================================================\n\n\
+      \            elif self.state == \"WAIT_GUARD\":\n\n                # Do not\
+      \ expose calibration/guard to decoder.\n                y[i] = 0.0\n\n     \
+      \           self.guard_buffer.append(value)\n\n                # Keep exactly\
+      \ guard_confirm_time worth of samples.\n                if len(self.guard_buffer)\
+      \ > self.guard_confirm_samples:\n                    self.guard_buffer.pop(0)\n\
+      \n                if len(self.guard_buffer) == self.guard_confirm_samples:\n\
+      \n                    guard = np.asarray(\n                        self.guard_buffer,\n\
+      \                        dtype=np.float64\n                    )\n\n       \
+      \             # What fraction of the guard window looks OFF?\n             \
+      \       below_fraction = float(\n                        np.mean(\n        \
+      \                    guard <= self.threshold_low\n                        )\n\
+      \                    )\n\n                    # Also check median level.\n \
+      \                   guard_median = float(\n                        np.median(guard)\n\
+      \                    )\n\n                    # Do NOT require every sample\
+      \ to be perfect.\n                    #\n                    # Require:\n  \
+      \                  #   - at least 80% of samples below threshold_low\n     \
+      \               #   - median below threshold_low\n                    if (\n\
+      \                        below_fraction >= 0.80\n                        and\n\
+      \                        guard_median <= self.threshold_low\n              \
+      \      ):\n\n                        print(\n                            \"\
+      OFF guard detected\",\n                            \"median =\",\n         \
+      \                   guard_median,\n                            \"below =\",\n\
+      \                            f\"{below_fraction * 100:.1f}%\",\n           \
+      \                 flush=True\n                        )\n\n                \
+      \        print(\n                            \"Slicer ACTIVE\",\n          \
+      \                  flush=True\n                        )\n\n               \
+      \         self.state = \"ACTIVE\"\n\n                        self.output_state\
+      \ = 0\n                        self.idle_count = 0\n\n                     \
+      \   self.guard_buffer = []\n\n\n            # =================================================\n\
+      \            # STATE 5\n            #\n            # Actual OOK data\n     \
+      \       # =================================================\n\n            elif\
+      \ self.state == \"ACTIVE\":\n\n                # =====================================================\n\
+      \                # Currently OFF\n                # =====================================================\n\
+      \n                if self.output_state == 0:\n\n                    # Signal\
+      \ must stay above HIGH threshold\n                    # for multiple samples\
+      \ before changing to ON.\n                    if value >= self.threshold_high:\n\
+      \n                        self.rise_count += 1\n\n                    else:\n\
+      \n                        self.rise_count = 0\n\n\n                    if self.rise_count\
+      \ >= self.transition_samples:\n\n                        self.output_state =\
+      \ 1\n\n                        self.rise_count = 0\n                       \
+      \ self.fall_count = 0\n\n\n                # =====================================================\n\
+      \                # Currently ON\n                # =====================================================\n\
+      \n                else:\n\n                    # Signal must stay below LOW\
+      \ threshold\n                    # for multiple samples before changing to OFF.\n\
+      \                    if value <= self.threshold_low:\n\n                   \
+      \     self.fall_count += 1\n\n                    else:\n\n                \
+      \        self.fall_count = 0\n\n\n                    if self.fall_count >=\
+      \ self.transition_samples:\n\n                        self.output_state = 0\n\
+      \n                        self.fall_count = 0\n                        self.rise_count\
+      \ = 0\n\n\n                # Output filtered digital state\n               \
+      \ y[i] = float(\n                    self.output_state\n                )\n\n\
+      \n                # =====================================================\n\
+      \                # End-of-frame detection\n                # =====================================================\n\
+      \n                if self.output_state == 0:\n\n                    self.idle_count\
+      \ += 1\n\n                else:\n\n                    self.idle_count = 0\n\
+      \n\n                if self.idle_count >= self.end_idle_samples:\n\n       \
+      \             print(\n                        \"End of frame detected\",\n \
+      \                       flush=True\n                    )\n\n              \
+      \      print(\n                        \"Returning to calibration\",\n     \
+      \                   flush=True\n                    )\n\n                  \
+      \  self.reset()\n\n\n        return len(x)"
+    affinity: ''
+    alias: ''
+    cal_off_time: '1.0'
+    chip_time: chip_time
+    comment: ''
+    end_idle_time: '3.0'
+    guard_confirm_time: '0.4'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    on_detect_time: '0.5'
+    on_verify_time: '1.00'
+    rx_rate: rx_rate
+  states:
+    _io_cache: ('Adaptive OOK Slicer', 'blk', [('rx_rate', '400.0'), ('chip_time',
+      '0.25'), ('cal_off_time', '1.0'), ('on_detect_time', '0.5'), ('on_verify_time',
+      '1.0'), ('guard_confirm_time', '0.4'), ('end_idle_time', '3.0')], [('0', 'float',
+      1)], [('0', 'float', 1)], '', ['chip_time', 'rx_rate'])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [488, 468.0]
+    rotation: 0
+    state: enabled
+- name: freq_xlating_fir_filter_xxx_0
+  id: freq_xlating_fir_filter_xxx
+  parameters:
+    affinity: ''
+    alias: ''
+    center_freq: offset
+    comment: ''
+    decim: xlate_decim
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samp_rate: samp_rate
+    taps: xlate_taps
+    type: ccc
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [368, 316.0]
+    rotation: 0
+    state: enabled
+- name: qtgui_time_sink_x_0
+  id: qtgui_time_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'True'
+    axislabels: 'True'
+    color1: blue
+    color10: dark blue
+    color2: red
+    color3: green
+    color4: black
+    color5: cyan
+    color6: magenta
+    color7: yellow
+    color8: dark red
+    color9: dark green
+    comment: ''
+    ctrlpanel: 'False'
+    entags: 'True'
+    grid: 'False'
+    gui_hint: ''
+    label1: Signal 1
+    label10: Signal 10
+    label2: Signal 2
+    label3: Signal 3
+    label4: Signal 4
+    label5: Signal 5
+    label6: Signal 6
+    label7: Signal 7
+    label8: Signal 8
+    label9: Signal 9
+    legend: 'True'
+    marker1: '-1'
+    marker10: '-1'
+    marker2: '-1'
+    marker3: '-1'
+    marker4: '-1'
+    marker5: '-1'
+    marker6: '-1'
+    marker7: '-1'
+    marker8: '-1'
+    marker9: '-1'
+    name: '""'
+    nconnections: '1'
+    size: display_points
+    srate: rx_rate
+    stemplot: 'False'
+    style1: '1'
+    style10: '1'
+    style2: '1'
+    style3: '1'
+    style4: '1'
+    style5: '1'
+    style6: '1'
+    style7: '1'
+    style8: '1'
+    style9: '1'
+    tr_chan: '0'
+    tr_delay: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_slope: qtgui.TRIG_SLOPE_POS
+    tr_tag: '""'
+    type: float
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    ylabel: Amplitude
+    ymax: '1'
+    ymin: '-1'
+    yunit: '""'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [688, 596.0]
+    rotation: 0
+    state: enabled
+- name: qtgui_time_sink_x_0_0
+  id: qtgui_time_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    axislabels: 'True'
+    color1: blue
+    color10: dark blue
+    color2: red
+    color3: green
+    color4: black
+    color5: cyan
+    color6: magenta
+    color7: yellow
+    color8: dark red
+    color9: dark green
+    comment: ''
+    ctrlpanel: 'False'
+    entags: 'True'
+    grid: 'False'
+    gui_hint: ''
+    label1: Signal 1
+    label10: Signal 10
+    label2: Signal 2
+    label3: Signal 3
+    label4: Signal 4
+    label5: Signal 5
+    label6: Signal 6
+    label7: Signal 7
+    label8: Signal 8
+    label9: Signal 9
+    legend: 'True'
+    marker1: '-1'
+    marker10: '-1'
+    marker2: '-1'
+    marker3: '-1'
+    marker4: '-1'
+    marker5: '-1'
+    marker6: '-1'
+    marker7: '-1'
+    marker8: '-1'
+    marker9: '-1'
+    name: '""'
+    nconnections: '1'
+    size: display_points
+    srate: rx_rate
+    stemplot: 'False'
+    style1: '1'
+    style10: '1'
+    style2: '1'
+    style3: '1'
+    style4: '1'
+    style5: '1'
+    style6: '1'
+    style7: '1'
+    style8: '1'
+    style9: '1'
+    tr_chan: '0'
+    tr_delay: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_slope: qtgui.TRIG_SLOPE_POS
+    tr_tag: '""'
+    type: float
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    ylabel: Amplitude
+    ymax: '1.2'
+    ymin: '-0.2'
+    yunit: '""'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [976, 420.0]
+    rotation: 0
+    state: enabled
+- name: rtlsdr_source_0
+  id: rtlsdr_source
+  parameters:
+    affinity: ''
+    alias: ''
+    ant0: ''
+    ant1: ''
+    ant10: ''
+    ant11: ''
+    ant12: ''
+    ant13: ''
+    ant14: ''
+    ant15: ''
+    ant16: ''
+    ant17: ''
+    ant18: ''
+    ant19: ''
+    ant2: ''
+    ant20: ''
+    ant21: ''
+    ant22: ''
+    ant23: ''
+    ant24: ''
+    ant25: ''
+    ant26: ''
+    ant27: ''
+    ant28: ''
+    ant29: ''
+    ant3: ''
+    ant30: ''
+    ant31: ''
+    ant4: ''
+    ant5: ''
+    ant6: ''
+    ant7: ''
+    ant8: ''
+    ant9: ''
+    args: '""'
+    bb_gain0: '20'
+    bb_gain1: '20'
+    bb_gain10: '20'
+    bb_gain11: '20'
+    bb_gain12: '20'
+    bb_gain13: '20'
+    bb_gain14: '20'
+    bb_gain15: '20'
+    bb_gain16: '20'
+    bb_gain17: '20'
+    bb_gain18: '20'
+    bb_gain19: '20'
+    bb_gain2: '20'
+    bb_gain20: '20'
+    bb_gain21: '20'
+    bb_gain22: '20'
+    bb_gain23: '20'
+    bb_gain24: '20'
+    bb_gain25: '20'
+    bb_gain26: '20'
+    bb_gain27: '20'
+    bb_gain28: '20'
+    bb_gain29: '20'
+    bb_gain3: '20'
+    bb_gain30: '20'
+    bb_gain31: '20'
+    bb_gain4: '20'
+    bb_gain5: '20'
+    bb_gain6: '20'
+    bb_gain7: '20'
+    bb_gain8: '20'
+    bb_gain9: '20'
+    bw0: 500e3
+    bw1: '0'
+    bw10: '0'
+    bw11: '0'
+    bw12: '0'
+    bw13: '0'
+    bw14: '0'
+    bw15: '0'
+    bw16: '0'
+    bw17: '0'
+    bw18: '0'
+    bw19: '0'
+    bw2: '0'
+    bw20: '0'
+    bw21: '0'
+    bw22: '0'
+    bw23: '0'
+    bw24: '0'
+    bw25: '0'
+    bw26: '0'
+    bw27: '0'
+    bw28: '0'
+    bw29: '0'
+    bw3: '0'
+    bw30: '0'
+    bw31: '0'
+    bw4: '0'
+    bw5: '0'
+    bw6: '0'
+    bw7: '0'
+    bw8: '0'
+    bw9: '0'
+    clock_source0: ''
+    clock_source1: ''
+    clock_source2: ''
+    clock_source3: ''
+    clock_source4: ''
+    clock_source5: ''
+    clock_source6: ''
+    clock_source7: ''
+    comment: ''
+    corr0: '0'
+    corr1: '0'
+    corr10: '0'
+    corr11: '0'
+    corr12: '0'
+    corr13: '0'
+    corr14: '0'
+    corr15: '0'
+    corr16: '0'
+    corr17: '0'
+    corr18: '0'
+    corr19: '0'
+    corr2: '0'
+    corr20: '0'
+    corr21: '0'
+    corr22: '0'
+    corr23: '0'
+    corr24: '0'
+    corr25: '0'
+    corr26: '0'
+    corr27: '0'
+    corr28: '0'
+    corr29: '0'
+    corr3: '0'
+    corr30: '0'
+    corr31: '0'
+    corr4: '0'
+    corr5: '0'
+    corr6: '0'
+    corr7: '0'
+    corr8: '0'
+    corr9: '0'
+    dc_offset_mode0: '0'
+    dc_offset_mode1: '0'
+    dc_offset_mode10: '0'
+    dc_offset_mode11: '0'
+    dc_offset_mode12: '0'
+    dc_offset_mode13: '0'
+    dc_offset_mode14: '0'
+    dc_offset_mode15: '0'
+    dc_offset_mode16: '0'
+    dc_offset_mode17: '0'
+    dc_offset_mode18: '0'
+    dc_offset_mode19: '0'
+    dc_offset_mode2: '0'
+    dc_offset_mode20: '0'
+    dc_offset_mode21: '0'
+    dc_offset_mode22: '0'
+    dc_offset_mode23: '0'
+    dc_offset_mode24: '0'
+    dc_offset_mode25: '0'
+    dc_offset_mode26: '0'
+    dc_offset_mode27: '0'
+    dc_offset_mode28: '0'
+    dc_offset_mode29: '0'
+    dc_offset_mode3: '0'
+    dc_offset_mode30: '0'
+    dc_offset_mode31: '0'
+    dc_offset_mode4: '0'
+    dc_offset_mode5: '0'
+    dc_offset_mode6: '0'
+    dc_offset_mode7: '0'
+    dc_offset_mode8: '0'
+    dc_offset_mode9: '0'
+    freq0: carrier - offset
+    freq1: 100e6
+    freq10: 100e6
+    freq11: 100e6
+    freq12: 100e6
+    freq13: 100e6
+    freq14: 100e6
+    freq15: 100e6
+    freq16: 100e6
+    freq17: 100e6
+    freq18: 100e6
+    freq19: 100e6
+    freq2: 100e6
+    freq20: 100e6
+    freq21: 100e6
+    freq22: 100e6
+    freq23: 100e6
+    freq24: 100e6
+    freq25: 100e6
+    freq26: 100e6
+    freq27: 100e6
+    freq28: 100e6
+    freq29: 100e6
+    freq3: 100e6
+    freq30: 100e6
+    freq31: 100e6
+    freq4: 100e6
+    freq5: 100e6
+    freq6: 100e6
+    freq7: 100e6
+    freq8: 100e6
+    freq9: 100e6
+    gain0: '10'
+    gain1: '10'
+    gain10: '10'
+    gain11: '10'
+    gain12: '10'
+    gain13: '10'
+    gain14: '10'
+    gain15: '10'
+    gain16: '10'
+    gain17: '10'
+    gain18: '10'
+    gain19: '10'
+    gain2: '10'
+    gain20: '10'
+    gain21: '10'
+    gain22: '10'
+    gain23: '10'
+    gain24: '10'
+    gain25: '10'
+    gain26: '10'
+    gain27: '10'
+    gain28: '10'
+    gain29: '10'
+    gain3: '10'
+    gain30: '10'
+    gain31: '10'
+    gain4: '10'
+    gain5: '10'
+    gain6: '10'
+    gain7: '10'
+    gain8: '10'
+    gain9: '10'
+    gain_mode0: 'False'
+    gain_mode1: 'False'
+    gain_mode10: 'False'
+    gain_mode11: 'False'
+    gain_mode12: 'False'
+    gain_mode13: 'False'
+    gain_mode14: 'False'
+    gain_mode15: 'False'
+    gain_mode16: 'False'
+    gain_mode17: 'False'
+    gain_mode18: 'False'
+    gain_mode19: 'False'
+    gain_mode2: 'False'
+    gain_mode20: 'False'
+    gain_mode21: 'False'
+    gain_mode22: 'False'
+    gain_mode23: 'False'
+    gain_mode24: 'False'
+    gain_mode25: 'False'
+    gain_mode26: 'False'
+    gain_mode27: 'False'
+    gain_mode28: 'False'
+    gain_mode29: 'False'
+    gain_mode3: 'False'
+    gain_mode30: 'False'
+    gain_mode31: 'False'
+    gain_mode4: 'False'
+    gain_mode5: 'False'
+    gain_mode6: 'False'
+    gain_mode7: 'False'
+    gain_mode8: 'False'
+    gain_mode9: 'False'
+    if_gain0: '20'
+    if_gain1: '20'
+    if_gain10: '20'
+    if_gain11: '20'
+    if_gain12: '20'
+    if_gain13: '20'
+    if_gain14: '20'
+    if_gain15: '20'
+    if_gain16: '20'
+    if_gain17: '20'
+    if_gain18: '20'
+    if_gain19: '20'
+    if_gain2: '20'
+    if_gain20: '20'
+    if_gain21: '20'
+    if_gain22: '20'
+    if_gain23: '20'
+    if_gain24: '20'
+    if_gain25: '20'
+    if_gain26: '20'
+    if_gain27: '20'
+    if_gain28: '20'
+    if_gain29: '20'
+    if_gain3: '20'
+    if_gain30: '20'
+    if_gain31: '20'
+    if_gain4: '20'
+    if_gain5: '20'
+    if_gain6: '20'
+    if_gain7: '20'
+    if_gain8: '20'
+    if_gain9: '20'
+    iq_balance_mode0: '0'
+    iq_balance_mode1: '0'
+    iq_balance_mode10: '0'
+    iq_balance_mode11: '0'
+    iq_balance_mode12: '0'
+    iq_balance_mode13: '0'
+    iq_balance_mode14: '0'
+    iq_balance_mode15: '0'
+    iq_balance_mode16: '0'
+    iq_balance_mode17: '0'
+    iq_balance_mode18: '0'
+    iq_balance_mode19: '0'
+    iq_balance_mode2: '0'
+    iq_balance_mode20: '0'
+    iq_balance_mode21: '0'
+    iq_balance_mode22: '0'
+    iq_balance_mode23: '0'
+    iq_balance_mode24: '0'
+    iq_balance_mode25: '0'
+    iq_balance_mode26: '0'
+    iq_balance_mode27: '0'
+    iq_balance_mode28: '0'
+    iq_balance_mode29: '0'
+    iq_balance_mode3: '0'
+    iq_balance_mode30: '0'
+    iq_balance_mode31: '0'
+    iq_balance_mode4: '0'
+    iq_balance_mode5: '0'
+    iq_balance_mode6: '0'
+    iq_balance_mode7: '0'
+    iq_balance_mode8: '0'
+    iq_balance_mode9: '0'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    nchan: '1'
+    num_mboards: '1'
+    sample_rate: samp_rate
+    sync: sync
+    time_source0: ''
+    time_source1: ''
+    time_source2: ''
+    time_source3: ''
+    time_source4: ''
+    time_source5: ''
+    time_source6: ''
+    time_source7: ''
+    type: fc32
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [56, 236.0]
+    rotation: 0
+    state: enabled
+
+connections:
+- [blocks_complex_to_mag_squared_0, '0', blocks_moving_average_xx_0, '0']
+- [blocks_keep_one_in_n_0, '0', epy_block_1, '0']
+- [blocks_keep_one_in_n_0, '0', qtgui_time_sink_x_0, '0']
+- [blocks_moving_average_xx_0, '0', blocks_keep_one_in_n_0, '0']
+- [epy_block_0, out, blocks_message_debug_0, print]
+- [epy_block_1, '0', epy_block_0, '0']
+- [epy_block_1, '0', qtgui_time_sink_x_0_0, '0']
+- [freq_xlating_fir_filter_xxx_0, '0', blocks_complex_to_mag_squared_0, '0']
+- [rtlsdr_source_0, '0', freq_xlating_fir_filter_xxx_0, '0']
+
+metadata:
+  file_format: 1
+  grc_version: 3.10.12.0
