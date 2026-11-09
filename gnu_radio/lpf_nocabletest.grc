@@ -1,0 +1,1211 @@
+options:
+  parameters:
+    author: ''
+    catch_exceptions: 'True'
+    category: '[GRC Hier Blocks]'
+    cmake_opt: ''
+    comment: ''
+    copyright: ''
+    description: ''
+    gen_cmake: 'On'
+    gen_linking: dynamic
+    generate_options: qt_gui
+    hier_block_src_path: '.:'
+    id: fmradio
+    max_nouts: '0'
+    output_language: python
+    placement: (0,0)
+    qt_qss_theme: ''
+    realtime_scheduling: ''
+    run: 'True'
+    run_command: '{python} -u {filename}'
+    run_options: prompt
+    sizing_mode: fixed
+    thread_safe_setters: ''
+    title: Not titled yet
+    window_size: (1000,1000)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 8]
+    rotation: 0
+    state: enabled
+
+blocks:
+- name: baseline_chips
+  id: variable
+  parameters:
+    comment: ''
+    value: '16'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1264, 252.0]
+    rotation: 0
+    state: enabled
+- name: baseline_len
+  id: variable
+  parameters:
+    comment: ''
+    value: ' max(1,int(chip_samples * baseline_chips))'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1392, 252.0]
+    rotation: 0
+    state: enabled
+- name: baseline_scale
+  id: variable
+  parameters:
+    comment: ''
+    value: 1.0 / baseline_len
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1264, 316.0]
+    rotation: 0
+    state: enabled
+- name: carrier
+  id: variable
+  parameters:
+    comment: ''
+    value: 40.68e6
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [784, 20.0]
+    rotation: 0
+    state: enabled
+- name: chip_samples
+  id: variable
+  parameters:
+    comment: ''
+    value: rx_rate * chip_time
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [672, 20.0]
+    rotation: 0
+    state: enabled
+- name: chip_time
+  id: variable
+  parameters:
+    comment: ''
+    value: '0.1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [200, 20.0]
+    rotation: 0
+    state: enabled
+- name: demod_rate
+  id: variable
+  parameters:
+    comment: ''
+    value: xlate_rate/lpf_decim
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [488, 20.0]
+    rotation: 0
+    state: enabled
+- name: display_chips
+  id: variable
+  parameters:
+    comment: ''
+    value: '30'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1264, 404.0]
+    rotation: 0
+    state: enabled
+- name: display_points
+  id: variable
+  parameters:
+    comment: ''
+    value: int(chip_samples * display_chips)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1264, 468.0]
+    rotation: 0
+    state: enabled
+- name: keep_n
+  id: variable
+  parameters:
+    comment: ''
+    value: max(1, int(demod_rate * chip_time / samples_per_chip))
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [592, 20.0]
+    rotation: 0
+    state: enabled
+- name: lpf_decim
+  id: variable
+  parameters:
+    comment: ''
+    value: '10'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [288, 20.0]
+    rotation: 0
+    state: enabled
+- name: offset
+  id: variable
+  parameters:
+    comment: ''
+    value: 100e3
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [896, 20.0]
+    rotation: 0
+    state: enabled
+- name: rx_rate
+  id: variable
+  parameters:
+    comment: ''
+    value: demod_rate/keep_n
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [656, 84.0]
+    rotation: 0
+    state: enabled
+- name: samp_rate
+  id: variable
+  parameters:
+    comment: ''
+    value: 1e6
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [200, 84.0]
+    rotation: 0
+    state: enabled
+- name: samples_per_chip
+  id: variable
+  parameters:
+    comment: ''
+    value: '10'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [512, 84.0]
+    rotation: 0
+    state: enabled
+- name: smooth_fraction
+  id: variable
+  parameters:
+    comment: ''
+    value: '0.1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1048, 124.0]
+    rotation: 0
+    state: enabled
+- name: smooth_len
+  id: variable
+  parameters:
+    comment: ''
+    value: max(1,int(demod_rate * chip_time * smooth_fraction))
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1192, 124.0]
+    rotation: 0
+    state: enabled
+- name: smooth_scale
+  id: variable
+  parameters:
+    comment: ''
+    value: 1.0/smooth_len
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1048, 196.0]
+    rotation: 0
+    state: enabled
+- name: target_freq
+  id: variable
+  parameters:
+    comment: ''
+    value: carrier-offset
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [784, 84.0]
+    rotation: 0
+    state: enabled
+- name: xlate_decim
+  id: variable
+  parameters:
+    comment: ''
+    value: '10'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [200, 148.0]
+    rotation: 0
+    state: enabled
+- name: xlate_rate
+  id: variable
+  parameters:
+    comment: ''
+    value: samp_rate/xlate_decim
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [352, 84.0]
+    rotation: 0
+    state: enabled
+- name: xlate_taps
+  id: variable
+  parameters:
+    comment: ''
+    value: firdes.low_pass(    1.0,    samp_rate,    10e3,    5e3,    window.WIN_HAMMING)
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1256, 12.0]
+    rotation: 0
+    state: enabled
+- name: blocks_complex_to_mag_squared_0
+  id: blocks_complex_to_mag_squared
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [592, 376.0]
+    rotation: 0
+    state: enabled
+- name: blocks_keep_one_in_n_0
+  id: blocks_keep_one_in_n
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    n: keep_n
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [184, 520.0]
+    rotation: 0
+    state: enabled
+- name: blocks_message_debug_0
+  id: blocks_message_debug
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    en_uvec: 'True'
+    log_level: info
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1240, 608.0]
+    rotation: 0
+    state: enabled
+- name: blocks_moving_average_xx_0
+  id: blocks_moving_average_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    length: smooth_len
+    max_iter: '4000'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    scale: smooth_scale
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [792, 348.0]
+    rotation: 0
+    state: enabled
+- name: blocks_moving_average_xx_1
+  id: blocks_moving_average_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    length: baseline_len
+    max_iter: '4000'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    scale: baseline_scale
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [352, 628.0]
+    rotation: 0
+    state: disabled
+- name: blocks_sub_xx_0
+  id: blocks_sub_xx
+  parameters:
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    num_inputs: '2'
+    type: float
+    vlen: '1'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [560, 656.0]
+    rotation: 0
+    state: disabled
+- name: epy_block_1
+  id: epy_block
+  parameters:
+    _source_code: "\"\"\"Weak-signal Manchester + Hamming(7,4) decoder for GNU Radio\
+      \ Companion.\n\nConnect averaged, non-thresholded RF power directly from Keep\
+      \ 1 in N.\nTransmitter format: 16-bit 1010... preamble (Manchester), followed\
+      \ by\nHamming(7,4)-protected 16-bit length + payload + CRC-16/CCITT (crc_hqx,\
+      \ 0xffff),\nwith all bits Manchester-encoded as 0 -> OFF,ON and 1 -> ON,OFF.\n\
+      \nThis block searches for a preamble in the RAW power stream and decodes\nManchester\
+      \ bits using the difference of mean received power between chips.\nIt uses a\
+      \ soft-decision Hamming decoder to exploit weak-signal confidence.\n\"\"\"\n\
+      \nimport binascii\nimport numpy as np\nimport pmt\nfrom gnuradio import gr\n\
+      \n\nclass blk(gr.sync_block):\n    PREAMBLE = \"1010101010101010\"\n\n    def\
+      \ __init__(\n        self,\n        rx_rate=100.0,\n        chip_time=0.1,\n\
+      \        max_payload=1024,\n        guard_time=0.35,\n        preamble_corr_min=0.78,\n\
+      \        debug=False,\n    ):\n        gr.sync_block.__init__(\n           \
+      \ self,\n            name=\"Weak-Signal Differential Manchester Decoder\",\n\
+      \            in_sig=[np.float32],\n            out_sig=[],\n        )\n    \
+      \    self.message_port_register_out(pmt.intern(\"out\"))\n\n        self.rx_rate\
+      \ = float(rx_rate)\n        self.chip_time = float(chip_time)\n        self.max_payload\
+      \ = int(max_payload)\n        self.guard_samples = max(1, int(round(self.rx_rate\
+      \ * float(guard_time))))\n        self.preamble_corr_min = float(preamble_corr_min)\n\
+      \        self.debug = bool(debug)\n\n        if self.rx_rate <= 0 or self.chip_time\
+      \ <= 0:\n            raise ValueError(\"rx_rate and chip_time must both be positive\"\
+      )\n        if self.max_payload < 0 or self.max_payload > 65535:\n          \
+      \  raise ValueError(\"max_payload must be between 0 and 65535\")\n        if\
+      \ not (0.0 < self.preamble_corr_min <= 1.0):\n            raise ValueError(\"\
+      preamble_corr_min must be in (0, 1]\")\n\n        exact_chip_samples = self.rx_rate\
+      \ * self.chip_time\n        self.chip_samples = int(round(exact_chip_samples))\n\
+      \        if self.chip_samples < 5:\n            raise ValueError(\n        \
+      \        \"At least 5 receiver samples/chip are needed; increase rx_rate \"\n\
+      \                \"or chip_time.\"\n            )\n        if abs(exact_chip_samples\
+      \ - self.chip_samples) > 0.01:\n            raise ValueError(\n            \
+      \    \"rx_rate * chip_time must be nearly an integer to avoid timing drift.\
+      \ \"\n                f\"Got {exact_chip_samples:.5f}.\"\n            )\n\n\
+      \        # Integrate over the middle 60% of each chip; exclude transitions.\n\
+      \        self.mid_lo = int(np.floor(0.20 * self.chip_samples))\n        self.mid_hi\
+      \ = int(np.ceil(0.80 * self.chip_samples))\n        self.mid_width = self.mid_hi\
+      \ - self.mid_lo\n        if self.mid_width < 1:\n            raise ValueError(\"\
+      Invalid chip integration window\")\n\n        preamble_chips = []\n        for\
+      \ bit in self.PREAMBLE:\n            preamble_chips.extend((1, 0) if bit ==\
+      \ \"1\" else (0, 1))\n        self.preamble_chips = np.array(preamble_chips,\
+      \ dtype=np.int8)\n        self.preamble_signs = (2 * self.preamble_chips - 1).astype(np.float64)\n\
+      \        self.preamble_chip_count = len(self.preamble_chips)  # 32\n       \
+      \ self.preamble_samples = self.preamble_chip_count * self.chip_samples\n   \
+      \     self.chip_offsets = np.arange(self.preamble_chip_count) * self.chip_samples\n\
+      \n        # Hamming(7,4): each codeword has 7 transmitted bits.\n        codebook\
+      \ = []\n        for v in range(16):\n            d1, d2, d3, d4 = ((v >> 3)\
+      \ & 1, (v >> 2) & 1,\n                              (v >> 1) & 1, v & 1)\n \
+      \           codebook.append((d1 ^ d2 ^ d4, d1 ^ d3 ^ d4, d1,\n             \
+      \                d2 ^ d3 ^ d4, d2, d3, d4))\n        self.codebook = np.array(codebook,\
+      \ dtype=np.int8)\n        # With D = second_power - first_power, bit=0 has positive\
+      \ D.\n        self.codebook_signs = (1 - 2 * self.codebook).astype(np.float64)\n\
+      \n        self.samples = np.empty(0, dtype=np.float64)\n        self.state =\
+      \ \"SEARCH\"\n        self.search_next = self.guard_samples\n        self.payload_length\
+      \ = None\n        self.preamble_gap = None\n\n        print(\"Weak-signal differential\
+      \ Manchester decoder started\", flush=True)\n        print(\n            f\"\
+      rx_rate={self.rx_rate:g}, chip_time={self.chip_time:g}, \"\n            f\"\
+      samples/chip={self.chip_samples}, \"\n            f\"preamble={self.preamble_chip_count}\
+      \ chips, \"\n            f\"guard={self.guard_samples} samples\",\n        \
+      \    flush=True,\n        )\n\n    def _chip_averages(self, first_chip, chip_count):\n\
+      \        \"\"\"Average the middle 60% of consecutive chips in the buffer.\"\"\
+      \"\n        indices = first_chip * self.chip_samples + (\n            np.arange(chip_count,\
+      \ dtype=np.int64) * self.chip_samples\n        )\n        start = indices +\
+      \ self.mid_lo\n        stop = indices + self.mid_hi\n        sums = np.concatenate(([0.0],\
+      \ np.cumsum(self.samples, dtype=np.float64)))\n        return (sums[stop] -\
+      \ sums[start]) / self.mid_width\n\n    def _find_preamble(self):\n        \"\
+      \"\"Search sample phases, requiring correlation and an OFF guard.\"\"\"\n  \
+      \      # Allow one additional chip of lookahead before committing, so the\n\
+      \        # chosen alignment can be optimized within its 1-chip neighborhood.\n\
+      \        last_ready = len(self.samples) - self.preamble_samples - self.chip_samples\n\
+      \        first = max(self.search_next, self.guard_samples)\n        if last_ready\
+      \ < first:\n            return False\n\n        # Examine one additional chip\
+      \ of candidate phases before accepting\n        # the earliest valid preamble\
+      \ start. Without this lookahead, a weak\n        # correlation can lock several\
+      \ samples EARLY at a transition.\n        last_evaluable = len(self.samples)\
+      \ - self.preamble_samples\n        starts = np.arange(first, last_evaluable\
+      \ + 1, dtype=np.int64)\n        cs = np.concatenate(([0.0], np.cumsum(self.samples,\
+      \ dtype=np.float64)))\n        chip_starts = starts[:, None] + self.chip_offsets[None,\
+      \ :]\n        chip_means = (\n            cs[chip_starts + self.mid_hi] - cs[chip_starts\
+      \ + self.mid_lo]\n        ) / self.mid_width\n\n        on_means = chip_means[:,\
+      \ self.preamble_chips == 1]\n        off_means = chip_means[:, self.preamble_chips\
+      \ == 0]\n        high = on_means.mean(axis=1)\n        low = off_means.mean(axis=1)\n\
+      \        gap = high - low\n\n        centered = chip_means - chip_means.mean(axis=1,\
+      \ keepdims=True)\n        denom = np.sqrt(\n            np.sum(centered * centered,\
+      \ axis=1)\n            * float(self.preamble_chip_count)\n        )\n      \
+      \  corr = np.divide(\n            centered @ self.preamble_signs,\n        \
+      \    denom,\n            out=np.zeros_like(gap),\n            where=denom >\
+      \ 1e-20,\n        )\n\n        # The transmitter sends 1.5 seconds of OFF guard\
+      \ before the\n        # preamble. Reject a candidate if that region is not OFF-like.\n\
+      \        guard_avg = (\n            cs[starts] - cs[starts - self.guard_samples]\n\
+      \        ) / self.guard_samples\n        guard_valid = guard_avg < low + 0.40\
+      \ * gap\n\n        # Do not lock onto a partial preamble that starts several\
+      \ whole\n        # Manchester bits early in the guard. The repeating 1001...\
+      \ pattern\n        # otherwise makes such partial matches score surprisingly\
+      \ well.\n        # The first 4 chips must actually resemble ON, OFF, OFF, ON.\n\
+      \        midlevel = (high + low) / 2.0\n        preamble_start_valid = (\n \
+      \           (chip_means[:, 0] > midlevel)\n            & (chip_means[:, 1] <\
+      \ midlevel)\n            & (chip_means[:, 2] < midlevel)\n            & (chip_means[:,\
+      \ 3] > midlevel)\n        )\n\n        # A normalized match rejects flat/noise-only\
+      \ intervals without any\n        # absolute amplitude threshold (which varies\
+      \ with antenna position).\n        valid = (\n            (corr >= self.preamble_corr_min)\
+      \ & (gap > 0.0)\n            & guard_valid & preamble_start_valid\n        )\n\
+      \        viable = np.flatnonzero(valid)\n        ready = viable[starts[viable]\
+      \ <= last_ready]\n        if ready.size == 0:\n            self.search_next\
+      \ = int(last_ready) + 1\n            # Retain OFF guard immediately preceding\
+      \ any candidate that has\n            # not yet been scanned; bound memory during\
+      \ long idle periods.\n            discard = max(0, self.search_next - self.guard_samples)\n\
+      \            if discard:\n                self.samples = self.samples[discard:].copy()\n\
+      \                self.search_next -= discard\n            return False\n\n \
+      \       # Find the best phase near the first plausible frame start, rather\n\
+      \        # than accidentally locking to an earlier, partly aligned edge.\n \
+      \       first_index = int(ready[0])\n        neighborhood = viable[viable <=\
+      \ first_index + self.chip_samples]\n        best = int(neighborhood[np.argmax(corr[neighborhood])])\n\
+      \        start = int(starts[best])\n        self.preamble_gap = float(gap[best])\n\
+      \n        if self.debug:\n            print(\n                f\"Preamble: corr={corr[best]:.3f},\
+      \ \"\n                f\"OFF={low[best]:.4e}, ON={high[best]:.4e}, \"\n    \
+      \            f\"gap={self.preamble_gap:.4e}, \"\n                f\"phase={start\
+      \ % self.chip_samples}\",\n                flush=True,\n            )\n    \
+      \    else:\n            print(f\"Preamble detected (correlation={corr[best]:.3f})\"\
+      , flush=True)\n\n        # Buffer now begins with the first preamble chip.\n\
+      \        self.samples = self.samples[start:].copy()\n        self.state = \"\
+      FRAME\"\n        self.payload_length = None\n        return True\n\n    def\
+      \ _differential_bits(self, start_chip, encoded_bit_count):\n        \"\"\"Return\
+      \ signed per-bit energy differences (second minus first).\"\"\"\n        mean_power\
+      \ = self._chip_averages(start_chip, 2 * encoded_bit_count)\n        return mean_power[1::2]\
+      \ - mean_power[0::2]\n\n    def _decode_hamming_soft(self, differences):\n \
+      \       \"\"\"ML/soft-decision decoding of Hamming(7,4) using signed energies.\"\
+      \"\"\n        if len(differences) % 7:\n            raise ValueError(\"Expected\
+      \ groups of 7 encoded Hamming bits\")\n        words = differences.reshape(-1,\
+      \ 7)\n        # A codeword gets a positive score when its predicted bit sign\n\
+      \        # matches each observed Manchester power difference.\n        scores\
+      \ = words @ self.codebook_signs.T\n        choices = np.argmax(scores, axis=1)\n\
+      \        # Count changes relative to naive sign-only Manchester decisions.\n\
+      \        raw_bits = (words < 0).astype(np.int8)\n        corrections = int(np.count_nonzero(raw_bits\
+      \ != self.codebook[choices]))\n        data_bits = \"\".join(f\"{int(v):04b}\"\
+      \ for v in choices)\n        return data_bits, corrections\n\n    def _reject(self,\
+      \ reason):\n        print(f\"Frame rejected: {reason}\", flush=True)\n     \
+      \   # Do not lock endlessly on the same candidate. Keep already-\n        #\
+      \ buffered later samples to allow searching for subsequent frames.\n       \
+      \ self.samples = self.samples[self.chip_samples:].copy()\n        self.state\
+      \ = \"SEARCH\"\n        self.payload_length = None\n        self.search_next\
+      \ = self.guard_samples\n\n    def _process_frame(self):\n        # The 16 length\
+      \ bits are protected by four Hamming(7,4) words:\n        # 28 encoded bits,\
+      \ 56 Manchester chips, after 32 preamble chips.\n        header_chips = self.preamble_chip_count\
+      \ + 2 * 28\n        if len(self.samples) < header_chips * self.chip_samples:\n\
+      \            return False\n\n        if self.payload_length is None:\n     \
+      \       d = self._differential_bits(self.preamble_chip_count, 28)\n        \
+      \    header_bits, _ = self._decode_hamming_soft(d)\n            length = int(header_bits,\
+      \ 2)\n            if length > self.max_payload:\n                self._reject(f\"\
+      invalid payload length {length} (max={self.max_payload})\")\n              \
+      \  return True\n            self.payload_length = length\n            if self.debug:\n\
+      \                print(f\"Payload length: {length} bytes\", flush=True)\n\n\
+      \        # Protected body = 16-bit length + payload + 16-bit CRC.\n        data_bits\
+      \ = 32 + 8 * self.payload_length\n        coded_bits = (data_bits // 4) * 7\n\
+      \        total_chips = self.preamble_chip_count + 2 * coded_bits\n        needed\
+      \ = total_chips * self.chip_samples\n        if len(self.samples) < needed:\n\
+      \            return False\n\n        differences = self._differential_bits(self.preamble_chip_count,\
+      \ coded_bits)\n        recovered, corrections = self._decode_hamming_soft(differences)\n\
+      \        length = int(recovered[:16], 2)\n        if length != self.payload_length:\n\
+      \            self._reject(\"header length mismatch\")\n            return True\n\
+      \n        payload_bits = recovered[16:16 + 8 * length]\n        received_crc\
+      \ = int(recovered[16 + 8 * length:32 + 8 * length], 2)\n        payload = bytes(\n\
+      \            int(payload_bits[i:i + 8], 2)\n            for i in range(0, len(payload_bits),\
+      \ 8)\n        )\n        calculated_crc = binascii.crc_hqx(payload, 0xFFFF)\n\
+      \        if received_crc != calculated_crc:\n            self._reject(\n   \
+      \             f\"CRC mismatch (received 0x{received_crc:04x}, \"\n         \
+      \       f\"calculated 0x{calculated_crc:04x})\"\n            )\n           \
+      \ return True\n\n        try:\n            message = payload.decode(\"utf-8\"\
+      )\n        except UnicodeDecodeError:\n            self._reject(\"valid CRC\
+      \ but invalid UTF-8 payload\")\n            return True\n\n        print(\n\
+      \            f\"DECODED MESSAGE: {message!r} \"\n            f\"(soft-Hamming\
+      \ corrections={corrections})\",\n            flush=True,\n        )\n      \
+      \  self.message_port_pub(pmt.intern(\"out\"), pmt.to_pmt(message))\n\n     \
+      \   # Drop only the decoded frame, leaving any subsequent OFF guard\n      \
+      \  # and new transmission in the stream.\n        self.samples = self.samples[needed:].copy()\n\
+      \        self.state = \"SEARCH\"\n        self.payload_length = None\n     \
+      \   self.search_next = self.guard_samples\n        return True\n\n    def work(self,\
+      \ input_items, output_items):\n        x = input_items[0]\n        if len(x)\
+      \ == 0:\n            return 0\n        self.samples = np.concatenate((self.samples,\
+      \ np.asarray(x, dtype=np.float64)))\n\n        # Process data in chunks, not\
+      \ one Python iteration per SDR sample.\n        # The loop may decode multiple\
+      \ frames if they arrived in one chunk.\n        for _ in range(20):\n      \
+      \      if self.state == \"SEARCH\":\n                if not self._find_preamble():\n\
+      \                    break\n            elif self.state == \"FRAME\":\n    \
+      \            if not self._process_frame():\n                    break\n    \
+      \        else:\n                raise RuntimeError(f\"Unexpected decoder state:\
+      \ {self.state}\")\n        return len(x)\n"
+    affinity: ''
+    alias: ''
+    chip_time: chip_time
+    comment: ''
+    debug: 'True'
+    guard_time: '0.35'
+    max_payload: '1024'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    preamble_corr_min: '0.78'
+    rx_rate: rx_rate
+  states:
+    _io_cache: ('Weak-Signal Differential Manchester Decoder', 'blk', [('rx_rate',
+      '100.0'), ('chip_time', '0.1'), ('max_payload', '1024'), ('guard_time', '0.35'),
+      ('preamble_corr_min', '0.78'), ('debug', 'False')], [('0', 'float', 1)], [('out',
+      'message', 1)], '', ['chip_time', 'debug', 'max_payload', 'preamble_corr_min',
+      'rx_rate'])
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [608, 500.0]
+    rotation: 0
+    state: enabled
+- name: freq_xlating_fir_filter_xxx_0
+  id: freq_xlating_fir_filter_xxx
+  parameters:
+    affinity: ''
+    alias: ''
+    center_freq: offset
+    comment: ''
+    decim: xlate_decim
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samp_rate: samp_rate
+    taps: xlate_taps
+    type: ccc
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [344, 324.0]
+    rotation: 0
+    state: enabled
+- name: low_pass_filter_0
+  id: low_pass_filter
+  parameters:
+    affinity: ''
+    alias: ''
+    beta: '6.76'
+    comment: ''
+    cutoff_freq: '2000'
+    decim: lpf_decim
+    gain: '1'
+    interp: '1'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    samp_rate: samp_rate/xlate_decim
+    type: fir_filter_ccf
+    width: '1000'
+    win: window.WIN_HAMMING
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [640, 196.0]
+    rotation: 0
+    state: enabled
+- name: qtgui_freq_sink_x_0
+  id: qtgui_freq_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    average: '1.0'
+    axislabels: 'True'
+    bw: samp_rate
+    color1: '"blue"'
+    color10: '"dark blue"'
+    color2: '"red"'
+    color3: '"green"'
+    color4: '"black"'
+    color5: '"cyan"'
+    color6: '"magenta"'
+    color7: '"yellow"'
+    color8: '"dark red"'
+    color9: '"dark green"'
+    comment: ''
+    ctrlpanel: 'False'
+    fc: target_freq
+    fftsize: '1024'
+    freqhalf: 'True'
+    grid: 'False'
+    gui_hint: ''
+    label: Relative Gain
+    label1: ''
+    label10: ''''''
+    label2: ''''''
+    label3: ''''''
+    label4: ''''''
+    label5: ''''''
+    label6: ''''''
+    label7: ''''''
+    label8: ''''''
+    label9: ''''''
+    legend: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    name: '""'
+    nconnections: '1'
+    norm_window: 'False'
+    showports: 'False'
+    tr_chan: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_tag: '""'
+    type: complex
+    units: dB
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    wintype: window.WIN_BLACKMAN_hARRIS
+    ymax: '10'
+    ymin: '-140'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [368, 180.0]
+    rotation: 0
+    state: enabled
+- name: qtgui_time_sink_x_0
+  id: qtgui_time_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'True'
+    axislabels: 'True'
+    color1: blue
+    color10: dark blue
+    color2: red
+    color3: green
+    color4: black
+    color5: cyan
+    color6: magenta
+    color7: yellow
+    color8: dark red
+    color9: dark green
+    comment: ''
+    ctrlpanel: 'False'
+    entags: 'True'
+    grid: 'False'
+    gui_hint: ''
+    label1: Signal 1
+    label10: Signal 10
+    label2: Signal 2
+    label3: Signal 3
+    label4: Signal 4
+    label5: Signal 5
+    label6: Signal 6
+    label7: Signal 7
+    label8: Signal 8
+    label9: Signal 9
+    legend: 'True'
+    marker1: '-1'
+    marker10: '-1'
+    marker2: '-1'
+    marker3: '-1'
+    marker4: '-1'
+    marker5: '-1'
+    marker6: '-1'
+    marker7: '-1'
+    marker8: '-1'
+    marker9: '-1'
+    name: '""'
+    nconnections: '1'
+    size: display_points
+    srate: rx_rate
+    stemplot: 'False'
+    style1: '1'
+    style10: '1'
+    style2: '1'
+    style3: '1'
+    style4: '1'
+    style5: '1'
+    style6: '1'
+    style7: '1'
+    style8: '1'
+    style9: '1'
+    tr_chan: '0'
+    tr_delay: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_slope: qtgui.TRIG_SLOPE_POS
+    tr_tag: '""'
+    type: float
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    ylabel: Amplitude
+    ymax: '1'
+    ymin: '-1'
+    yunit: '""'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [376, 604.0]
+    rotation: 0
+    state: enabled
+- name: rtlsdr_source_0
+  id: rtlsdr_source
+  parameters:
+    affinity: ''
+    alias: ''
+    ant0: ''
+    ant1: ''
+    ant10: ''
+    ant11: ''
+    ant12: ''
+    ant13: ''
+    ant14: ''
+    ant15: ''
+    ant16: ''
+    ant17: ''
+    ant18: ''
+    ant19: ''
+    ant2: ''
+    ant20: ''
+    ant21: ''
+    ant22: ''
+    ant23: ''
+    ant24: ''
+    ant25: ''
+    ant26: ''
+    ant27: ''
+    ant28: ''
+    ant29: ''
+    ant3: ''
+    ant30: ''
+    ant31: ''
+    ant4: ''
+    ant5: ''
+    ant6: ''
+    ant7: ''
+    ant8: ''
+    ant9: ''
+    args: '"buffers=64"'
+    bb_gain0: '20'
+    bb_gain1: '20'
+    bb_gain10: '20'
+    bb_gain11: '20'
+    bb_gain12: '20'
+    bb_gain13: '20'
+    bb_gain14: '20'
+    bb_gain15: '20'
+    bb_gain16: '20'
+    bb_gain17: '20'
+    bb_gain18: '20'
+    bb_gain19: '20'
+    bb_gain2: '20'
+    bb_gain20: '20'
+    bb_gain21: '20'
+    bb_gain22: '20'
+    bb_gain23: '20'
+    bb_gain24: '20'
+    bb_gain25: '20'
+    bb_gain26: '20'
+    bb_gain27: '20'
+    bb_gain28: '20'
+    bb_gain29: '20'
+    bb_gain3: '20'
+    bb_gain30: '20'
+    bb_gain31: '20'
+    bb_gain4: '20'
+    bb_gain5: '20'
+    bb_gain6: '20'
+    bb_gain7: '20'
+    bb_gain8: '20'
+    bb_gain9: '20'
+    bw0: 500e3
+    bw1: '0'
+    bw10: '0'
+    bw11: '0'
+    bw12: '0'
+    bw13: '0'
+    bw14: '0'
+    bw15: '0'
+    bw16: '0'
+    bw17: '0'
+    bw18: '0'
+    bw19: '0'
+    bw2: '0'
+    bw20: '0'
+    bw21: '0'
+    bw22: '0'
+    bw23: '0'
+    bw24: '0'
+    bw25: '0'
+    bw26: '0'
+    bw27: '0'
+    bw28: '0'
+    bw29: '0'
+    bw3: '0'
+    bw30: '0'
+    bw31: '0'
+    bw4: '0'
+    bw5: '0'
+    bw6: '0'
+    bw7: '0'
+    bw8: '0'
+    bw9: '0'
+    clock_source0: ''
+    clock_source1: ''
+    clock_source2: ''
+    clock_source3: ''
+    clock_source4: ''
+    clock_source5: ''
+    clock_source6: ''
+    clock_source7: ''
+    comment: ''
+    corr0: '0'
+    corr1: '0'
+    corr10: '0'
+    corr11: '0'
+    corr12: '0'
+    corr13: '0'
+    corr14: '0'
+    corr15: '0'
+    corr16: '0'
+    corr17: '0'
+    corr18: '0'
+    corr19: '0'
+    corr2: '0'
+    corr20: '0'
+    corr21: '0'
+    corr22: '0'
+    corr23: '0'
+    corr24: '0'
+    corr25: '0'
+    corr26: '0'
+    corr27: '0'
+    corr28: '0'
+    corr29: '0'
+    corr3: '0'
+    corr30: '0'
+    corr31: '0'
+    corr4: '0'
+    corr5: '0'
+    corr6: '0'
+    corr7: '0'
+    corr8: '0'
+    corr9: '0'
+    dc_offset_mode0: '0'
+    dc_offset_mode1: '0'
+    dc_offset_mode10: '0'
+    dc_offset_mode11: '0'
+    dc_offset_mode12: '0'
+    dc_offset_mode13: '0'
+    dc_offset_mode14: '0'
+    dc_offset_mode15: '0'
+    dc_offset_mode16: '0'
+    dc_offset_mode17: '0'
+    dc_offset_mode18: '0'
+    dc_offset_mode19: '0'
+    dc_offset_mode2: '0'
+    dc_offset_mode20: '0'
+    dc_offset_mode21: '0'
+    dc_offset_mode22: '0'
+    dc_offset_mode23: '0'
+    dc_offset_mode24: '0'
+    dc_offset_mode25: '0'
+    dc_offset_mode26: '0'
+    dc_offset_mode27: '0'
+    dc_offset_mode28: '0'
+    dc_offset_mode29: '0'
+    dc_offset_mode3: '0'
+    dc_offset_mode30: '0'
+    dc_offset_mode31: '0'
+    dc_offset_mode4: '0'
+    dc_offset_mode5: '0'
+    dc_offset_mode6: '0'
+    dc_offset_mode7: '0'
+    dc_offset_mode8: '0'
+    dc_offset_mode9: '0'
+    freq0: carrier - offset
+    freq1: 100e6
+    freq10: 100e6
+    freq11: 100e6
+    freq12: 100e6
+    freq13: 100e6
+    freq14: 100e6
+    freq15: 100e6
+    freq16: 100e6
+    freq17: 100e6
+    freq18: 100e6
+    freq19: 100e6
+    freq2: 100e6
+    freq20: 100e6
+    freq21: 100e6
+    freq22: 100e6
+    freq23: 100e6
+    freq24: 100e6
+    freq25: 100e6
+    freq26: 100e6
+    freq27: 100e6
+    freq28: 100e6
+    freq29: 100e6
+    freq3: 100e6
+    freq30: 100e6
+    freq31: 100e6
+    freq4: 100e6
+    freq5: 100e6
+    freq6: 100e6
+    freq7: 100e6
+    freq8: 100e6
+    freq9: 100e6
+    gain0: '10'
+    gain1: '10'
+    gain10: '10'
+    gain11: '10'
+    gain12: '10'
+    gain13: '10'
+    gain14: '10'
+    gain15: '10'
+    gain16: '10'
+    gain17: '10'
+    gain18: '10'
+    gain19: '10'
+    gain2: '10'
+    gain20: '10'
+    gain21: '10'
+    gain22: '10'
+    gain23: '10'
+    gain24: '10'
+    gain25: '10'
+    gain26: '10'
+    gain27: '10'
+    gain28: '10'
+    gain29: '10'
+    gain3: '10'
+    gain30: '10'
+    gain31: '10'
+    gain4: '10'
+    gain5: '10'
+    gain6: '10'
+    gain7: '10'
+    gain8: '10'
+    gain9: '10'
+    gain_mode0: 'False'
+    gain_mode1: 'False'
+    gain_mode10: 'False'
+    gain_mode11: 'False'
+    gain_mode12: 'False'
+    gain_mode13: 'False'
+    gain_mode14: 'False'
+    gain_mode15: 'False'
+    gain_mode16: 'False'
+    gain_mode17: 'False'
+    gain_mode18: 'False'
+    gain_mode19: 'False'
+    gain_mode2: 'False'
+    gain_mode20: 'False'
+    gain_mode21: 'False'
+    gain_mode22: 'False'
+    gain_mode23: 'False'
+    gain_mode24: 'False'
+    gain_mode25: 'False'
+    gain_mode26: 'False'
+    gain_mode27: 'False'
+    gain_mode28: 'False'
+    gain_mode29: 'False'
+    gain_mode3: 'False'
+    gain_mode30: 'False'
+    gain_mode31: 'False'
+    gain_mode4: 'False'
+    gain_mode5: 'False'
+    gain_mode6: 'False'
+    gain_mode7: 'False'
+    gain_mode8: 'False'
+    gain_mode9: 'False'
+    if_gain0: '20'
+    if_gain1: '20'
+    if_gain10: '20'
+    if_gain11: '20'
+    if_gain12: '20'
+    if_gain13: '20'
+    if_gain14: '20'
+    if_gain15: '20'
+    if_gain16: '20'
+    if_gain17: '20'
+    if_gain18: '20'
+    if_gain19: '20'
+    if_gain2: '20'
+    if_gain20: '20'
+    if_gain21: '20'
+    if_gain22: '20'
+    if_gain23: '20'
+    if_gain24: '20'
+    if_gain25: '20'
+    if_gain26: '20'
+    if_gain27: '20'
+    if_gain28: '20'
+    if_gain29: '20'
+    if_gain3: '20'
+    if_gain30: '20'
+    if_gain31: '20'
+    if_gain4: '20'
+    if_gain5: '20'
+    if_gain6: '20'
+    if_gain7: '20'
+    if_gain8: '20'
+    if_gain9: '20'
+    iq_balance_mode0: '0'
+    iq_balance_mode1: '0'
+    iq_balance_mode10: '0'
+    iq_balance_mode11: '0'
+    iq_balance_mode12: '0'
+    iq_balance_mode13: '0'
+    iq_balance_mode14: '0'
+    iq_balance_mode15: '0'
+    iq_balance_mode16: '0'
+    iq_balance_mode17: '0'
+    iq_balance_mode18: '0'
+    iq_balance_mode19: '0'
+    iq_balance_mode2: '0'
+    iq_balance_mode20: '0'
+    iq_balance_mode21: '0'
+    iq_balance_mode22: '0'
+    iq_balance_mode23: '0'
+    iq_balance_mode24: '0'
+    iq_balance_mode25: '0'
+    iq_balance_mode26: '0'
+    iq_balance_mode27: '0'
+    iq_balance_mode28: '0'
+    iq_balance_mode29: '0'
+    iq_balance_mode3: '0'
+    iq_balance_mode30: '0'
+    iq_balance_mode31: '0'
+    iq_balance_mode4: '0'
+    iq_balance_mode5: '0'
+    iq_balance_mode6: '0'
+    iq_balance_mode7: '0'
+    iq_balance_mode8: '0'
+    iq_balance_mode9: '0'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    nchan: '1'
+    num_mboards: '1'
+    sample_rate: samp_rate
+    sync: sync
+    time_source0: ''
+    time_source1: ''
+    time_source2: ''
+    time_source3: ''
+    time_source4: ''
+    time_source5: ''
+    time_source6: ''
+    time_source7: ''
+    type: fc32
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [56, 236.0]
+    rotation: 0
+    state: enabled
+
+connections:
+- [blocks_complex_to_mag_squared_0, '0', blocks_moving_average_xx_0, '0']
+- [blocks_keep_one_in_n_0, '0', epy_block_1, '0']
+- [blocks_keep_one_in_n_0, '0', qtgui_time_sink_x_0, '0']
+- [blocks_moving_average_xx_0, '0', blocks_keep_one_in_n_0, '0']
+- [epy_block_1, out, blocks_message_debug_0, print]
+- [freq_xlating_fir_filter_xxx_0, '0', low_pass_filter_0, '0']
+- [low_pass_filter_0, '0', blocks_complex_to_mag_squared_0, '0']
+- [rtlsdr_source_0, '0', freq_xlating_fir_filter_xxx_0, '0']
+- [rtlsdr_source_0, '0', qtgui_freq_sink_x_0, '0']
+
+metadata:
+  file_format: 1
+  grc_version: 3.10.12.0
